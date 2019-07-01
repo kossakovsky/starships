@@ -31,4 +31,5 @@
       br
       h3
         nuxt-link(to="/starships") Решение
+      div Параметр в запросе для поиска ?search=
 </template>

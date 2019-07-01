@@ -4,7 +4,7 @@
       v-card
         v-card-title
           h2
-            nuxt-link(to="/starships") Назад
+            v-btn(to="/starships") back
           v-layout(column)
           // В данном конкретном случае так вполне можно сделать
           v-flex(xs12 v-for="(value, name) in starship" :key="name")

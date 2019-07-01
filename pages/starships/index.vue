@@ -5,7 +5,7 @@
         v-card-title
           h2 Starships
           v-spacer
-          v-text-field(v-model="search" append-icon="search" label="Search" single-line hide-details)
+          v-text-field(v-model.trim="search" append-icon="search" label="Search" single-line hide-details)
         v-card-text
           v-data-table(:headers="headers" :items="starships" :search="search" hide-actions)
             template(#items="props")
@@ -20,8 +20,8 @@
               v-alert(:value="true" color="error" icon="warning") Your search for "{{ search }}" found no results.
         v-card-actions
           v-layout(justify-end)
-            v-btn(v-if="pagination.hasPreviousPage" @click="getPreviousPage") prev
-            v-btn(v-if="pagination.hasNextPage" @click="getNextPage") next
+            v-btn(:disabled="!pagination.hasPreviousPage" @click="getPreviousPage") prev
+            v-btn(:disabled="!pagination.hasNextPage" @click="getNextPage") next
 </template>
 
 <script lang="ts">
@@ -48,7 +48,7 @@
     @shipsStore.Action getStarships
 
     async asyncData ({ store }) {
-      await store.dispatch('starships.store/getStarships', 1)
+      await store.dispatch('starships.store/getStarships', store.state['starships.store'].pagination.page)
     }
 
     beforeMount () {
